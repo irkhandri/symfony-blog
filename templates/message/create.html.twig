@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create message{% endblock %}
+
+{% block body %}
+
+<div class="w3-container w3-content" style="max-width: 1400px; margin-top: 80px;">
+    <div class="w3-row-padding">
+
+        <div class="w3-twothird" >
+            <div class="w3-container w3-card w3-white w3-margin-bottom">
+
+
+            <h1 class="w3-text-theme w3-padding-16 w3-center">Send message</h1>
+
+            {# {{ form_errors(registrationForm) }} #}
+
+            {{ form_start(form) }} 
+                {% if not  app.user %}
+                
+                    <label>{{ form_label(form.email) }}</label>
+                    {{ form_widget(form.email) }}   
+                    <br> 
+                {% else %}
+                    {{ form_widget(form.email, {
+                        'value':  app.user.email  ,
+                        'type' : 'hidden'
+                        }) }}
+
+                {% endif %}
+                <label>{{ form_label(form.subject) }}</label>
+                {{ form_widget(form.subject) }}
+
+                {{ form_widget(form.text)}}
+                    {# {{ form_widget(form) }} #}
+                    <input type="submit" class="w3-button w3-theme w3-margin-top w3-center " value="Submit"></input>
+            {{ form_end(form) }}
+
+            
+
+            </div>
+        </div>
+    </div>
+</div>  
+{% endblock %}

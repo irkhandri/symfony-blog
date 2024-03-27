@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}MyBlog!{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-light-green.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="main.css">  -->
+    {# <link rel="stylesheet" href="{% static 'styles/main.css' %} " /> #}
+
+    {# {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %} #}
+
+</head>
+
+
+
+
+
+
+<body class="w3-theme-l5">
+    {# {% extends 'navbar.html.twig' %}   #}
+
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+
+        {# {% if request.path == '/' %} w3-theme-d5 {% endif %} #}
+
+        <a href="/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white  " ><i class="fa fa-book"></i>  Blogs</a>
+
+        <!-- <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a> -->
+        <!-- <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i></a> -->
+
+        <!-- <a href="events.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Events"><i class="fa fa-calendar "></i></a> -->
+        
+        <a href="/profiles" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white " title="Groups"><i class="fa fa-group "></i>  Authors</a>
+
+
+
+        {# {% if request.user.is_authenticated %} #}
+
+        {% if app.user  %}
+        <a href="/input-messages" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white " title="Messages"><i class="fa fa-envelope"></i>  Messages</a>
+        <a href="/profiles/{{app.user.profile.id}}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white "><i class="fa fa-home "></i> MyBlog</a>
+
+        {# <a href="/blogs/create" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white "><i class="fa fa-edit"></i> Add new Blog</a> #}
+
+
+        <!-- <a href="" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="My Profile"><i class="fa fa-pencil-square"></i>  Create Blog</a> -->
+        
+        <a href="/profiles/{{app.user.profile.id}}" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
+            <img src="{{app.user.profile.imageUrl}}" class="w3-circle" style="height:27px;width:27px" alt="Avatar"> 
+        </a>
+
+        {%  endif %}
+
+
+
+
+        <a href="/{{ app.user ? 'logout' : 'login' }}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white  w3-right" title="My Profile"> {{ app.user ? 'Logout' : 'Log/Sign'}} </a>
+
+
+        {# {% else %} #}
+
+        {# <a href="/register" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white  w3-right " title="My Profile"> Log In/Sign Up</a> #}
+
+
+        {# {% endif %} #}
+
+        
+    </div>
+   
+</div>
+ <br> <br>
+
+    {# {% if messages %}
+    
+
+        {% for message in messages %}
+        <div style="margin-top: 50px;" class=" w3-center w3-card  alert--{{message.tags}}">
+            <p >{{message}}</p>
+            </div>       
+        
+        {% endfor %}
+
+    {% endif %} #}
+
+    {% block body %}
+    
+    {% endblock %}
+
+
+
+
+</body>
+
+{# <script src="{% static 'styles/app.js' %}"></script> #}
