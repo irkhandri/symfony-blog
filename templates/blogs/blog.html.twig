@@ -83,43 +83,46 @@
                   
 
                   
-                  {# {% if request.user.author.id  in blog.commentators %}
-                    <h3>You can comment only once</h3>
-                  {% elif request.user.author.id != blog.owner.id and request.user.is_authenticated  %}
+                  {# {% if request.user.author.id  in blog.commentators %} #}
+                    {# <h3>You can comment only once</h3> #}
+                  {# {% elif request.user.author.id != blog.owner.id and request.user.is_authenticated  %} #}
                   <hr> 
-                  <form method="post" action="{% url 'blog' blog.id %}">
-                    {% csrf_token %}
+                  {# <form method="POST" action=""> #}
+                    {# {% csrf_token %} #}
 
                     <!-- Like and Dislike buttons -->
                     <div>
                       <button type="button" class="like-button w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> Like</button>
                       <button type="button" class="dislike-button w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-down"></i> Dislike</button>
-                  </div>
-
-                    <div>
-                        <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
-                        {{ form.description }}
                     </div>
+
+                    {{ form_start(form) }} 
+
+                        {# <label> {{form_label(form.description)}} </label> #}
+                        {{form_widget(form.description)}}
                     
-                    <br>
+                        <br>
                     
                     <!-- Hidden input field for form.react -->
-                    <input type="hidden" name="{{ form.react.name }}" id="react-input" value="">
+                    {# <input type="hidden" name="{{ form.react.name }}" id="react-input" value=""> #}
                     
-                    <!-- Submit button -->
-                    <button type="submit"  class=" w3-button w3-theme-d1 w3-margin-bottom">Comment</button>
-                </form>
-                {% elif not request.user.is_authenticated %}
-                <h3> You can not comment, you must log in</h3>
-                <a href="{% url 'login' %}?next={{request.path}}" class="w3-button w3-theme  "><i class="fa fa"></i> Log In</a>
+                        <!-- Submit button -->
+                        <input type="submit" class="w3-button w3-theme w3-margin-top w3-center " value="Comment"></input>
+                      
+                    {{ form_end(form) }}
 
-                {% else %}
-                  <h3> You can not comment your own blogs</h3>
-                {% endif %} #}
+                {# </form> #}
+                {# {% elif not request.user.is_authenticated %} #}
+                {# <h3> You can not comment, you must log in</h3> #}
+                {# <a href="{% url 'login' %}?next={{request.path}}" class="w3-button w3-theme  "><i class="fa fa"></i> Log In</a> #}
+
+                {# {% else %} #}
+                  {# <h3> You can not comment your own blogs</h3> #}
+                {# {% endif %}  #}
 
                 
-                <h3 class="w3-text-theme">Comments</h3>
-                <hr>
+                {# <h3 class="w3-text-theme">Comments</h3>
+                <hr> #}
                   {# {% for comment in blog.comment_set.all %}
                   
 
@@ -156,7 +159,7 @@
     </div>
     
     <!-- End Page Container -->
-  {# </div>
+   </div>
   
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -178,7 +181,7 @@
             reactInput.value = "dislike";
         });
     });
-  </script> #}
+  </script> 
 
 
 {% endblock %}

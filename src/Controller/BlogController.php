@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Repository\BlogRepository;
 use App\Entity\Blog;
+use App\Entity\Comment;
 use App\Entity\User;
 use App\Form\BlogFormType;
+use App\Form\CommentFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -113,12 +115,33 @@ class BlogController extends AbstractController
         
     }
 
-    #[Route('/blogs/{id}', methods:['GET'],  name: 'blog')] //, defaults:['name' => null], methods:['GET', 'HEAD'])]
-    public function blog($id): Response
+    #[Route('/blogs/{id}', methods:['POST', 'GET'],  name: 'blog')] //, defaults:['name' => null], methods:['GET', 'HEAD'])]
+    // #[Route('/blogs/{id}', name: 'blog')]
+    public function blog($id, Request $request): Response
     {
-       $context = [
-            'blog' => $this->blogRepo->find($id)
-       ];
+        $comment = new Comment();
+        $form = $this->createForm(CommentFormType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() ) // $$ $form->isValid())
+        {
+            $newComment = $form->getData();
+
+            $newComment->setBlog($this->blogRepo->find($id));
+
+            $this->em->persist($newComment);
+            $this->em->flush();
+
+            return $this->redirect('/blogs/' . $id);
+
+        }
+
+
+        $context = [
+                'blog' => $this->blogRepo->find($id),
+                'form' => $form->createView()
+        ];
         return $this->render('blogs/blog.html.twig', $context );
     }
 
